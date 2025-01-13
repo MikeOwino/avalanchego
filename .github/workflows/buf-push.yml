@@ -1,0 +1,22 @@
+name: buf-push
+
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - master
+      - dev
+    paths:
+      - "proto/**"
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-action@v1
+        with:
+          input: "proto"
+          token: ${{ secrets.BUF_TOKEN }}
+          version: 1.35.0
